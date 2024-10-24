@@ -1,9 +1,9 @@
 === Error Log Monitor ===
 Contributors: whiteshadow
-Tags: dashboard widget, administration, error reporting, admin, maintenance, php
+Tags: dashboard widget, administration, error reporting, admin, php
 Requires at least: 4.5
-Tested up to: 6.5.3
-Stable tag: 1.7.8
+Tested up to: 6.6.2
+Stable tag: 1.7.10
 
 Adds a Dashboard widget that displays the latest messages from your PHP error log. It can also send logged errors to email.
 
@@ -45,6 +45,14 @@ Follow these steps to install the plugin on your site:
 2. Dashboard widget configuration screen.
 
 == Changelog ==
+
+= 1.7.10 =
+* Fix likely crash due to some Freemius SDK files being missing.
+
+= 1.7.9 =
+* Made the "Stack Trace" section collapsible. By default, it will always be expanded if available. You can change that in the widget configuration, in the new "Context" section. The plugin will also remember the state of recently collapsed/expanded "Stack Trace" sections (per unique log message). 
+* Updated the Freemius SDK to version 2.9.0.
+* Tested up to WP 6.6.2.
 
 = 1.7.8 =
 * Added a "Download Log" button. It downloads the PHP error log as a ZIP file. The button will only appear if the log is not empty and the server meets a number of additional requirements (PHP 8.1+, 64-bit PHP version, zlib and mbstring extensions).
