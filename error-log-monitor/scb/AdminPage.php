@@ -34,8 +34,11 @@ abstract class scbAdminPage {
 	// l10n
 	protected $textdomain;
 
+	protected $nonce;
+	protected $file;
 
-//  ____________REGISTRATION COMPONENT____________
+
+	//  ____________REGISTRATION COMPONENT____________
 
 
 	private static $registered = array();
@@ -534,6 +537,7 @@ abstract class scbAdminPage {
 	 * @param string        $help
 	 * @param string|object $screen
 	 *
+	 * @deprecated WSH: The relevant hook was removed and this method is no longer called.
 	 * @return string
 	 */
 	public function _contextual_help( $help, $screen ) {

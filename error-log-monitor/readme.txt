@@ -2,8 +2,8 @@
 Contributors: whiteshadow
 Tags: dashboard widget, administration, error reporting, admin, php
 Requires at least: 4.5
-Tested up to: 6.6.2
-Stable tag: 1.7.10
+Tested up to: 6.7.1
+Stable tag: 1.7.11
 
 Adds a Dashboard widget that displays the latest messages from your PHP error log. It can also send logged errors to email.
 
@@ -45,6 +45,11 @@ Follow these steps to install the plugin on your site:
 2. Dashboard widget configuration screen.
 
 == Changelog ==
+
+= 1.7.11 =
+* Fixed potential PHP deprecation warnings like "Creation of dynamic property ClassName::$file is deprecated in .../AdminPage.php". While this plugin doesn't trigger warnings like that on its own, it could cause them indirectly if it was used together with another plugin that also uses the scbFramework framework.
+* Updated the Freemius SDK to the latest version.
+* Tested up to WP 6.7.1.
 
 = 1.7.10 =
 * Fix likely crash due to some Freemius SDK files being missing.
