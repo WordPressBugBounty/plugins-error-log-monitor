@@ -1,6 +1,8 @@
 <?php
 
 class Elm_DashboardWidget {
+	const LOG_CLEARING_ERROR_TRANSIENT = 'elm_log_clearing_error';
+
 	protected $widgetId = 'ws_php_error_log';
 	protected $requiredCapability = 'manage_options';
 	protected $widgetCssPath = 'css/dashboard-widget.css';
@@ -129,8 +131,32 @@ class Elm_DashboardWidget {
 			return;
 		}
 
-		if ( isset($_GET['elm-log-cleared']) && !empty($_GET['elm-log-cleared']) ) {
-			printf('<p><strong>%s</strong></p>', __('Log cleared.', 'error-log-monitor'));
+		//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( isset($_GET['elm-log-cleared']) && is_numeric($_GET['elm-log-cleared']) ) {
+			//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$code = (int)$_GET['elm-log-cleared'];
+
+			if ( $code === 1 ) {
+				printf('<p><strong>%s</strong></p>', esc_html__('Log cleared.', 'error-log-monitor'));
+			} else if ( $code === 2 ) {
+				$storedMessage = get_transient(self::LOG_CLEARING_ERROR_TRANSIENT);
+				if ( $storedMessage !== false ) { //Clean up the transient.
+					delete_transient(self::LOG_CLEARING_ERROR_TRANSIENT);
+				}
+
+				if ( is_string($storedMessage) && !empty($storedMessage) ) {
+					$message = sprintf(
+						__('Error clearing log: %s', 'error-log-monitor'),
+						$storedMessage
+					);
+				} else {
+					$message = __('An unknown error occurred while clearing the log.', 'error-log-monitor');
+				}
+				printf(
+					'<div class="notice notice-error inline"><p><strong>%s</strong></p></div>',
+					esc_html($message)
+				);
+			}
 		}
 
 		$this->displayContentSection($log);
@@ -1330,12 +1356,20 @@ class Elm_DashboardWidget {
 				return;
 			}
 
-			$log->clear();
+			$result = $log->clear();
+			if ( is_wp_error($result) ) {
+				set_transient(self::LOG_CLEARING_ERROR_TRANSIENT, $result->get_error_message(), 120);
+				$statusCode = 2;
+			} else {
+				//Since the log is empty now, we can reset the file size notification.
+				$this->settings->set('log_size_notification_sent', false);
+				$statusCode = 1;
+			}
 
-			//Since the log is empty now, we can reset the file size notification.
-			$this->settings->set('log_size_notification_sent', false);
-
-			wp_redirect(self_admin_url('index.php?elm-log-cleared=1'));
+			wp_safe_redirect(add_query_arg(
+				['elm-log-cleared' => $statusCode],
+				self_admin_url('index.php')
+			));
 			exit();
 		}
 	}

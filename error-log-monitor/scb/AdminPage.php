@@ -318,6 +318,7 @@ abstract class scbAdminPage {
 		} else if ( false !== strpos( $submit_button, '<button' ) ) {
 			$content .= $submit_button;
 		} else if ( false !== $submit_button ) {
+			//phpcs:ignore -- $submit_button isn't actually modified, so func_get_args() is fine here.
 			$button_args = array_slice( func_get_args(), 1 );
 			$content    .= call_user_func_array( array( $this, 'submit_button' ), $button_args );
 		}

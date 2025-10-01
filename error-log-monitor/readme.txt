@@ -1,9 +1,10 @@
 === Error Log Monitor ===
 Contributors: whiteshadow
 Tags: dashboard widget, administration, error reporting, admin, php
+License: GPLv3
 Requires at least: 4.5
-Tested up to: 6.7.1
-Stable tag: 1.7.11
+Tested up to: 6.8.3
+Stable tag: 1.7.12
 
 Adds a Dashboard widget that displays the latest messages from your PHP error log. It can also send logged errors to email.
 
@@ -45,6 +46,11 @@ Follow these steps to install the plugin on your site:
 2. Dashboard widget configuration screen.
 
 == Changelog ==
+
+= 1.7.12 =
+* Fixed a fatal error when trying to clear a log file that is not writable.
+* Updated the Freemius SDK to version 2.12.2.
+* Tested up to WP 6.8.3 and WP 6.9-alpha.
 
 = 1.7.11 =
 * Fixed potential PHP deprecation warnings like "Creation of dynamic property ClassName::$file is deprecated in .../AdminPage.php". While this plugin doesn't trigger warnings like that on its own, it could cause them indirectly if it was used together with another plugin that also uses the scbFramework framework.
