@@ -349,7 +349,7 @@ class Elm_SetupWizard {
 	private function generateConfigCode($logFileName) {
 		$configLines = array(
 			"//Enable error logging.",
-			"@ini_set('log_errors', 'On');",
+			"@ini_set('log_errors', 1);",
 			sprintf("@ini_set('error_log', %s);", var_export($logFileName, true)),
 		);
 
@@ -359,7 +359,7 @@ class Elm_SetupWizard {
 				array(
 					"", //A blank line for better readability.
 					"//Don't show errors to site visitors.",
-					"@ini_set('display_errors', 'Off');",
+					"@ini_set('display_errors', 0);",
 					"if ( !defined('WP_DEBUG_DISPLAY') ) {",
 					"\tdefine('WP_DEBUG_DISPLAY', false);",
 					"}",

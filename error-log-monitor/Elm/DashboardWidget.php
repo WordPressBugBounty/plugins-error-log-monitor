@@ -739,7 +739,7 @@ class Elm_DashboardWidget {
 	}
 
 	private function displayConfigurationHelp($problem) {
-		$exampleCode = "@ini_set('log_errors', 'On');\n"
+		$exampleCode = "@ini_set('log_errors', 1);\n"
 			. "@ini_set('error_log', '/full/path/to/php-errors.log');";
 		printf('<p><strong>%s</strong></p>', $problem);
 

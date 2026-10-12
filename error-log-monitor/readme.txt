@@ -3,8 +3,8 @@ Contributors: whiteshadow
 Tags: dashboard widget, administration, error reporting, admin, php
 License: GPLv3
 Requires at least: 4.5
-Tested up to: 6.8.3
-Stable tag: 1.7.12
+Tested up to: 7.1.2
+Stable tag: 1.7.13
 
 Adds a Dashboard widget that displays the latest messages from your PHP error log. It can also send logged errors to email.
 
@@ -46,6 +46,11 @@ Follow these steps to install the plugin on your site:
 2. Dashboard widget configuration screen.
 
 == Changelog ==
+
+= 1.7.13 =
+* Slightly improved compatibility with other plugins that may read INI settings.
+* Updated the Freemius SDK to the latest version.
+* Tested up to WP 7.1.2 and 7.2-alpha.
 
 = 1.7.12 =
 * Fixed a fatal error when trying to clear a log file that is not writable.
